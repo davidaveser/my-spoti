@@ -1,6 +1,5 @@
 /// Receive [data] as a json and returns a `List<Artist>`
-List<Artist> artistListToModel(List<dynamic> data) =>
-    List<Artist>.from(data.map<dynamic>((dynamic x) => Artist.fromJson(x)));
+List<Artist> artistList(List<dynamic> data) => List<Artist>.from(data.map<dynamic>((dynamic x) => Artist.fromJson(x)));
 
 /// Model for Artist intems.
 class Artist {
