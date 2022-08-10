@@ -27,8 +27,8 @@ abstract class OAuth2SpotifyUtil {
 
     // OAuth2 Spotify Client
     final OAuth2Client spotifyClient = SpotifyOAuth2Client(
-      redirectUri: 'my-spoty://calback',
-      customUriScheme: 'my-spoty',
+      redirectUri: 'my.spoti://callback',
+      customUriScheme: 'my.spoti',
     );
 
     // Set headers to the client
@@ -36,6 +36,10 @@ abstract class OAuth2SpotifyUtil {
 
     // Scopes list
     const List<String> spotifyScopes = ['user-read-private'];
+
+    // Params
+    final authParams = <String, dynamic>{};
+    authParams['show_dialog'] = 'true';
 
     // Request
     try {
@@ -46,6 +50,7 @@ abstract class OAuth2SpotifyUtil {
           clientId: Keys.spotifyClientId,
           clientSecret: Keys.spotifyClientSecret,
           scopes: spotifyScopes,
+          authCodeParams: authParams,
         );
       } else {
         accessTokenResponse = await spotifyClient.refreshToken(
@@ -68,15 +73,15 @@ abstract class OAuth2SpotifyUtil {
 
   static Future<void> _saveAccessToken({required AccessTokenResponse accessTokenResponse}) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString(PreferencesKeys.spotifyToken, accessTokenResponse.accessToken);
-    prefs.setString(PreferencesKeys.spotifyRefreshToken, accessTokenResponse.refreshToken);
+    prefs.setString(PreferencesKeys.spotifyToken, accessTokenResponse.accessToken ?? '');
+    prefs.setString(PreferencesKeys.spotifyRefreshToken, accessTokenResponse.refreshToken ?? '');
     prefs.setString(PreferencesKeys.spotifyTokenExpiration, accessTokenResponse.expirationDate.toString());
   }
 
   // Check and refresh the current acces token, return false if some error is occurred.
   static Future<bool> isTokenActive() async {
     final prefs = await SharedPreferences.getInstance();
-    final String expirationDate = prefs.getString(PreferencesKeys.spotifyTokenExpiration);
+    final String expirationDate = prefs.getString(PreferencesKeys.spotifyTokenExpiration) ?? '';
     final DateTime expiration = DateTime.parse(expirationDate);
 
     if (expiration.isAfter(DateTime.now())) {

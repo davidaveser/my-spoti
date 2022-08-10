@@ -29,7 +29,7 @@
 			<string>/</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>my-spoti</string>
+				<string>my.spoti</string>
 			</array>
 		</dict>
 	</array>
