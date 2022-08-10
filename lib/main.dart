@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_spoti/constants/custom_colors.constants.dart';
 import 'package:my_spoti/constants/providers.constants.dart';
-import 'package:my_spoti/ui/views/home.view.dart';
+import 'package:my_spoti/ui/views/home/home.view.dart';
 import 'package:my_spoti/ui/views/login.view.dart';
 import 'package:my_spoti/utils/oauth2.util.dart';
 import 'package:provider/provider.dart';

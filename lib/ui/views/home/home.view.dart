@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_spoti/constants/assets_path.constants.dart';
 import 'package:my_spoti/constants/enums.constants.dart';
 import 'package:my_spoti/stores/app_state.store.dart';
+import 'package:my_spoti/ui/views/home/sections/search_section.view.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
@@ -16,7 +17,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: Observer(builder: (_) {
         if (appState.searchSelected) {
-          return Container();
+          return const SearchSectionView();
         }
         return Container();
       }),

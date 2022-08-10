@@ -1,7 +1,7 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:my_spoti/constants/custom_colors.constants.dart';
-import 'package:my_spoti/ui/views/search.view.dart';
+import 'package:my_spoti/ui/views/home/home.view.dart';
 import 'package:my_spoti/utils/oauth2.util.dart';
 
 class LoginView extends StatelessWidget {
@@ -52,7 +52,7 @@ class LoginView extends StatelessWidget {
                   Navigator.push<void>(
                     context,
                     MaterialPageRoute<void>(
-                      builder: (BuildContext context) => const SearchView(),
+                      builder: (BuildContext context) => const HomeView(),
                     ),
                   );
                 }
