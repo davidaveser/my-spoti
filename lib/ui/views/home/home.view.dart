@@ -17,9 +17,9 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: Observer(builder: (_) {
         if (appState.isSearchSectionSelected) {
-          return const SearchSectionView();
+          return const HomeSearchSectionView();
         }
-        return Container();
+        return const HomeSearchSectionView();
       }),
 
       // Bootom navigation
@@ -32,14 +32,14 @@ class HomeView extends StatelessWidget {
             children: [
               // Home selection
               SectionButtonWidget(
-                assetIcon: AssetsPath.homeSectionIcon,
+                assetIcon: AssetsPath.homeMainSectionIcon,
                 isActive: appState.isMainSectionSelected,
                 onTap: () => appState.homeSectionSelected = AppSections.homeMain,
               ),
 
               // Search selection
               SectionButtonWidget(
-                assetIcon: AssetsPath.searchSectionIcon,
+                assetIcon: AssetsPath.homeSearchSectionIcon,
                 isActive: appState.isSearchSectionSelected,
                 onTap: () => appState.homeSectionSelected = AppSections.homeSearch,
                 isLeft: false,

@@ -1,5 +1,6 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:my_spoti/constants/assets_path.constants.dart';
 import 'package:my_spoti/constants/custom_colors.constants.dart';
 import 'package:my_spoti/ui/views/home/home.view.dart';
 import 'package:my_spoti/utils/oauth2.util.dart';
@@ -40,7 +41,7 @@ class LoginView extends StatelessWidget {
             const Spacer(flex: 3),
 
             // Spotify icon
-            Image.asset('assets/general/spotify_icon_green.png', height: 60.0),
+            Image.asset(AssetsPath.loginSpotifyIcon, height: 60.0),
 
             const SizedBox(height: 20.0),
 
