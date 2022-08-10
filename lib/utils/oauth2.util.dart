@@ -82,16 +82,21 @@ abstract class OAuth2SpotifyUtil {
   static Future<bool> isTokenActive() async {
     final prefs = await SharedPreferences.getInstance();
     final String expirationDate = prefs.getString(PreferencesKeys.spotifyTokenExpiration) ?? '';
-    final DateTime expiration = DateTime.parse(expirationDate);
 
-    if (expiration.isAfter(DateTime.now())) {
-      final bool succesRefresh = await getAndSaveAccessToken(refreshToken: prefs.getString(PreferencesKeys.spotifyRefreshToken));
-      if (!succesRefresh) {
-        await prefs.clear();
+    if (expirationDate.isNotEmpty) {
+      final DateTime expiration = DateTime.parse(expirationDate);
+
+      if (expiration.isAfter(DateTime.now())) {
+        final bool succesRefresh = await getAndSaveAccessToken(refreshToken: prefs.getString(PreferencesKeys.spotifyRefreshToken));
+        if (!succesRefresh) {
+          await prefs.clear();
+        }
+
+        return succesRefresh;
       }
-
-      return succesRefresh;
+      return true;
     }
-    return true;
+
+    return false;
   }
 }
