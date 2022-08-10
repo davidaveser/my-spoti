@@ -86,7 +86,7 @@ abstract class OAuth2SpotifyUtil {
     if (expirationDate.isNotEmpty) {
       final DateTime expiration = DateTime.parse(expirationDate);
 
-      if (expiration.isAfter(DateTime.now())) {
+      if (expiration.isBefore(DateTime.now())) {
         final bool succesRefresh = await getAndSaveAccessToken(refreshToken: prefs.getString(PreferencesKeys.spotifyRefreshToken));
         if (!succesRefresh) {
           await prefs.clear();
