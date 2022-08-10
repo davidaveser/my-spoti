@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_spoti/constants/custom_colors.constants.dart';
 import 'package:my_spoti/constants/providers.constants.dart';
 import 'package:my_spoti/ui/views/home.view.dart';
@@ -40,14 +41,21 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: Providers.providers,
-      child: MaterialApp(
-        title: 'My Spoti Search',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          scaffoldBackgroundColor: CustomColors.background,
+      child: AnnotatedRegion(
+        value: SystemUiOverlayStyle(
+        statusBarColor: Colors.white.withOpacity(0.01),
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark,
+      ),
+        child: MaterialApp(
+          title: 'My Spoti Search',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            scaffoldBackgroundColor: CustomColors.background,
+          ),
+          debugShowCheckedModeBanner: false,
+          home: initialRoute,
         ),
-        debugShowCheckedModeBanner: false,
-        home: initialRoute,
       ),
     );
   }

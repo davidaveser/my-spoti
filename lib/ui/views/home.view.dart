@@ -1,39 +1,59 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_spoti/constants/assets_path.constants.dart';
+import 'package:my_spoti/constants/enums.constants.dart';
+import 'package:my_spoti/stores/app_state.store.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final appState = Provider.of<AppStateStore>(context);
+
     return Scaffold(
-      body: Container(),
+      body: Observer(builder: (_) {
+        if (appState.searchSelected) {
+          return Container();
+        }
+        return Container();
+      }),
 
       // Bootom navigation
-      bottomNavigationBar: Blur(
+      floatingActionButton: Blur(
         colorOpacity: 0.15,
         borderRadius: const BorderRadius.only(topLeft: Radius.circular(65.0), topRight: Radius.circular(65.0)),
-        overlay: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SectionButtonWidget(
-              assetIcon: AssetsPath.homeSectionIcon,
-              onTap: () {},
-            ),
-            SectionButtonWidget(
-              assetIcon: AssetsPath.searchSectionIcon,
-              onTap: () {},
-              isLeft: false,
-            ),
-          ],
+        overlay: Observer(
+          builder: (dynamic _) => Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Home selection
+              SectionButtonWidget(
+                assetIcon: AssetsPath.homeSectionIcon,
+                isActive: appState.homeSelected,
+                onTap: () => appState.appSection = AppSections.home,
+              ),
+
+              // Search selection
+              SectionButtonWidget(
+                assetIcon: AssetsPath.searchSectionIcon,
+                isActive: appState.searchSelected,
+                onTap: () => appState.appSection = AppSections.search,
+                isLeft: false,
+              ),
+            ],
+          ),
         ),
-        child: const SizedBox(width: double.infinity, height: 85.0),
+        child: const SizedBox(width: double.infinity, height: 69.0),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
 
+/// Widget for item the differents sections of the app.
 class SectionButtonWidget extends StatelessWidget {
   const SectionButtonWidget({
     Key? key,
@@ -59,7 +79,7 @@ class SectionButtonWidget extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width / 2,
-        padding: const EdgeInsets.only(bottom: 15.0),
+        padding: const EdgeInsets.only(bottom: 5.0),
         child: Image.asset(assetIcon, height: 22.33, color: isActive ? Colors.white : Colors.white38),
       ),
     );
