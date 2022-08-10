@@ -36,6 +36,7 @@ class LoginView extends StatelessWidget {
                 ),
               ),
             ),
+
             const Spacer(flex: 3),
 
             // Spotify icon
