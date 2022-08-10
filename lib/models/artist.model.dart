@@ -11,23 +11,23 @@ class Artist {
     this.followers,
   });
 
+  factory Artist.fromJson(Map<String, dynamic> json) => Artist(
+        name: json['name'],
+        id: json['id'],
+        images: json['images'] == null ? null : List<Image>.from(json['images'].map((dynamic x) => Image.fromJson(x))),
+        followers: json['followers'] == null ? null : Followers.fromJson(json['followers']),
+      );
+
   String? name;
   String? id;
   List<Image>? images;
   Followers? followers;
 
-  factory Artist.fromJson(Map<String, dynamic> json) => Artist(
-        name: json["name"],
-        id: json["id"],
-        images: json["images"] == null ? null : List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
-        followers: json["followers"] == null ? null : Followers.fromJson(json["followers"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "id": id,
-        "images": images == null ? null : List<dynamic>.from(images?.map((x) => x.toJson()) ?? []),
-        "followers": followers?.toJson(),
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'name': name,
+        'id': id,
+        'images': images == null ? null : List<dynamic>.from(images?.map<dynamic>((x) => x.toJson()) ?? <dynamic>[]),
+        'followers': followers?.toJson(),
       };
 }
 
@@ -37,36 +37,36 @@ class Followers {
     this.href,
   });
 
+  factory Followers.fromJson(Map<String, dynamic> json) => Followers(
+        total: json['total'],
+        href: json['href'],
+      );
+
   int? total;
   String? href;
 
-  factory Followers.fromJson(Map<String, dynamic> json) => Followers(
-        total: json["total"],
-        href: json["href"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "total": total,
-        "href": href,
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'total': total,
+        'href': href,
       };
 }
 
 class Image {
   Image({this.height, this.url, this.width});
 
+  factory Image.fromJson(Map<String, dynamic> json) => Image(
+        url: json['url'],
+        height: json['height'],
+        width: json['width'],
+      );
+
   String? url;
   int? height;
   int? width;
 
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
-        url: json["url"],
-        height: json["height"],
-        width: json["width"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "url": url,
-        "height": height,
-        "width": width,
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'url': url,
+        'height': height,
+        'width': width,
       };
 }
