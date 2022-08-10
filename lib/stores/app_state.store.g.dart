@@ -9,34 +9,34 @@ part of 'app_state.store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$AppStateStore on AppStateWithStore, Store {
-  Computed<bool>? _$homeSelectedComputed;
+  Computed<bool>? _$isMainSectionSelectedComputed;
 
   @override
-  bool get homeSelected =>
-      (_$homeSelectedComputed ??= Computed<bool>(() => super.homeSelected,
-              name: 'AppStateWithStore.homeSelected'))
-          .value;
-  Computed<bool>? _$searchSelectedComputed;
+  bool get isMainSectionSelected => (_$isMainSectionSelectedComputed ??=
+          Computed<bool>(() => super.isMainSectionSelected,
+              name: 'AppStateWithStore.isMainSectionSelected'))
+      .value;
+  Computed<bool>? _$isSearchSectionSelectedComputed;
 
   @override
-  bool get searchSelected =>
-      (_$searchSelectedComputed ??= Computed<bool>(() => super.searchSelected,
-              name: 'AppStateWithStore.searchSelected'))
-          .value;
+  bool get isSearchSectionSelected => (_$isSearchSectionSelectedComputed ??=
+          Computed<bool>(() => super.isSearchSectionSelected,
+              name: 'AppStateWithStore.isSearchSectionSelected'))
+      .value;
 
-  late final _$appSectionAtom =
-      Atom(name: 'AppStateWithStore.appSection', context: context);
+  late final _$homeSectionSelectedAtom =
+      Atom(name: 'AppStateWithStore.homeSectionSelected', context: context);
 
   @override
-  AppSections get appSection {
-    _$appSectionAtom.reportRead();
-    return super.appSection;
+  AppSections get homeSectionSelected {
+    _$homeSectionSelectedAtom.reportRead();
+    return super.homeSectionSelected;
   }
 
   @override
-  set appSection(AppSections value) {
-    _$appSectionAtom.reportWrite(value, super.appSection, () {
-      super.appSection = value;
+  set homeSectionSelected(AppSections value) {
+    _$homeSectionSelectedAtom.reportWrite(value, super.homeSectionSelected, () {
+      super.homeSectionSelected = value;
     });
   }
 
@@ -57,9 +57,9 @@ mixin _$AppStateStore on AppStateWithStore, Store {
   @override
   String toString() {
     return '''
-appSection: ${appSection},
-homeSelected: ${homeSelected},
-searchSelected: ${searchSelected}
+homeSectionSelected: ${homeSectionSelected},
+isMainSectionSelected: ${isMainSectionSelected},
+isSearchSectionSelected: ${isSearchSectionSelected}
     ''';
   }
 }

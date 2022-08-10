@@ -4,7 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_spoti/constants/assets_path.constants.dart';
 import 'package:my_spoti/constants/enums.constants.dart';
 import 'package:my_spoti/stores/app_state.store.dart';
-import 'package:my_spoti/ui/views/home/sections/search_section.view.dart';
+import 'package:my_spoti/ui/views/home/sections/home_search_section.view.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
@@ -16,7 +16,7 @@ class HomeView extends StatelessWidget {
 
     return Scaffold(
       body: Observer(builder: (_) {
-        if (appState.searchSelected) {
+        if (appState.isSearchSectionSelected) {
           return const SearchSectionView();
         }
         return Container();
@@ -33,15 +33,15 @@ class HomeView extends StatelessWidget {
               // Home selection
               SectionButtonWidget(
                 assetIcon: AssetsPath.homeSectionIcon,
-                isActive: appState.homeSelected,
-                onTap: () => appState.appSection = AppSections.home,
+                isActive: appState.isMainSectionSelected,
+                onTap: () => appState.homeSectionSelected = AppSections.homeMain,
               ),
 
               // Search selection
               SectionButtonWidget(
                 assetIcon: AssetsPath.searchSectionIcon,
-                isActive: appState.searchSelected,
-                onTap: () => appState.appSection = AppSections.search,
+                isActive: appState.isSearchSectionSelected,
+                onTap: () => appState.homeSectionSelected = AppSections.homeSearch,
                 isLeft: false,
               ),
             ],

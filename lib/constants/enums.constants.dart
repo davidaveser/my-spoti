@@ -1,4 +1,4 @@
 enum AppSections {
-  home,
-  search,
+  homeMain,
+  homeSearch,
 }
