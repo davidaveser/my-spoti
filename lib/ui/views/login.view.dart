@@ -1,6 +1,8 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:my_spoti/constants/custom_colors.constants.dart';
+import 'package:my_spoti/ui/views/search.view.dart';
+import 'package:my_spoti/utils/oauth2.util.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -43,7 +45,17 @@ class LoginView extends StatelessWidget {
 
             // Log in button
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                final bool logged = await OAuth2SpotifyUtil.getAndSaveAccessToken();
+                if (logged) {
+                  Navigator.push<void>(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => const SearchView(),
+                    ),
+                  );
+                }
+              },
               style: ElevatedButton.styleFrom(
                 primary: CustomColors.spotifyGreen,
                 shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(60.0))),

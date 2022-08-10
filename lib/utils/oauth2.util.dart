@@ -11,7 +11,7 @@ abstract class OAuth2SpotifyUtil {
   /// Auth flow request to get access to a spotify account.
   ///
   /// If [refreshToken] is not null then a refresh token will be apply instead the auth flow request.
-  Future<bool> getAndSaveAccessToken({String? refreshToken}) async {
+  static Future<bool> getAndSaveAccessToken({String? refreshToken}) async {
     // Client Id and Secret (String)
     const String clientID = Keys.spotifyClientId;
     const String clientSecret = Keys.spotifyClientSecret;
@@ -66,7 +66,7 @@ abstract class OAuth2SpotifyUtil {
     }
   }
 
-  Future<void> _saveAccessToken({required AccessTokenResponse accessTokenResponse}) async {
+  static Future<void> _saveAccessToken({required AccessTokenResponse accessTokenResponse}) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(PreferencesKeys.spotifyToken, accessTokenResponse.accessToken);
     prefs.setString(PreferencesKeys.spotifyRefreshToken, accessTokenResponse.refreshToken);
@@ -74,7 +74,7 @@ abstract class OAuth2SpotifyUtil {
   }
 
   // Check and refresh the current acces token, return false if some error is occurred.
-  Future<bool> isTokenActive() async {
+  static Future<bool> isTokenActive() async {
     final prefs = await SharedPreferences.getInstance();
     final String expirationDate = prefs.getString(PreferencesKeys.spotifyTokenExpiration);
     final DateTime expiration = DateTime.parse(expirationDate);
