@@ -1,16 +1,17 @@
-/// Receive [data] as a json and returns a `List<Artist>`
-List<Artist> artistList(List<dynamic> data) => List<Artist>.from(data.map<dynamic>((dynamic x) => Artist.fromJson(x)));
+/// Receive spotify artists as json [data] and returns a `List<SpotifyArtist>`
+List<SpotifyArtist> artistList(List<dynamic> data) =>
+    List<SpotifyArtist>.from(data.map<dynamic>((dynamic x) => SpotifyArtist.fromJson(x)));
 
-/// Model for Artist intems.
-class Artist {
-  Artist({
+/// Model for spotify artists intems.
+class SpotifyArtist {
+  SpotifyArtist({
     this.name,
     this.id,
     this.images,
     this.followers,
   });
 
-  factory Artist.fromJson(Map<String, dynamic> json) => Artist(
+  factory SpotifyArtist.fromJson(Map<String, dynamic> json) => SpotifyArtist(
         name: json['name'],
         id: json['id'],
         images: json['images'] == null ? null : List<Image>.from(json['images'].map((dynamic x) => Image.fromJson(x))),

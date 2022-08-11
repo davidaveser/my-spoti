@@ -1,16 +1,17 @@
-/// Receive [data] as a json and returns a `List<Album>`
-List<Album> albumList(List<dynamic> data) => List<Album>.from(data.map<dynamic>((dynamic x) => Album.fromJson(x)));
+/// Receive spotify albums as json [data] and returns a `List<SpotifyAlbum>`
+List<SpotifyAlbum> albumList(List<dynamic> data) =>
+    List<SpotifyAlbum>.from(data.map<dynamic>((dynamic x) => SpotifyAlbum.fromJson(x)));
 
-/// Model for Albums intems.
-class Album {
-  Album({
+/// Model for spotify albums intems.
+class SpotifyAlbum {
+  SpotifyAlbum({
     this.name,
     this.id,
     this.images,
     this.releaseDate,
   });
 
-  factory Album.fromJson(Map<String, dynamic> json) => Album(
+  factory SpotifyAlbum.fromJson(Map<String, dynamic> json) => SpotifyAlbum(
         name: json['name'],
         id: json['id'],
         images: json['images'] == null ? null : List<Image>.from(json['images'].map((dynamic x) => Image.fromJson(x))),

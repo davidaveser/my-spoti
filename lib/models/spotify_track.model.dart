@@ -1,12 +1,13 @@
-import 'package:my_spoti/models/album.model.dart';
 import 'package:my_spoti/models/artist.model.dart';
+import 'package:my_spoti/models/spotify_album.model.dart';
 
-/// Receive [data] as a json and returns a `List<Track>`
-List<Track> trackList(List<dynamic> data) => List<Track>.from(data.map<dynamic>((dynamic x) => Track.fromJson(x)));
+/// Receive spotify tracks as json [data] and returns a `List<SpotifyAlbum>`
+List<SpotifyTrack> trackList(List<dynamic> data) =>
+    List<SpotifyTrack>.from(data.map<dynamic>((dynamic x) => SpotifyTrack.fromJson(x)));
 
-/// Model for Track intems.
-class Track {
-  Track({
+/// Model for spotify tacks intems.
+class SpotifyTrack {
+  SpotifyTrack({
     required this.name,
     required this.durationMs,
     required this.trackNumber,
@@ -16,14 +17,16 @@ class Track {
     this.artists,
   });
 
-  factory Track.fromJson(Map<String, dynamic> json) => Track(
+  factory SpotifyTrack.fromJson(Map<String, dynamic> json) => SpotifyTrack(
         name: json['name'] ?? '',
         durationMs: json['duration_ms'] ?? 0,
         trackNumber: json['track_number'] ?? -1,
         isExplicit: json['explicit'] ?? false,
         previewUrl: json['preview_url'],
-        album: json['album'] == null ? null : Album.fromJson(json['album']),
-        artists: json['artists'] == null ? null : List<Artist>.from(json['artists'].map((dynamic x) => Artist.fromJson(x))),
+        album: json['album'] == null ? null : SpotifyAlbum.fromJson(json['album']),
+        artists: json['artists'] == null
+            ? null
+            : List<SpotifyArtist>.from(json['artists'].map((dynamic x) => SpotifyArtist.fromJson(x))),
       );
 
   String name;
@@ -31,8 +34,8 @@ class Track {
   int trackNumber;
   bool isExplicit;
   String? previewUrl;
-  Album? album;
-  List<Artist>? artists;
+  SpotifyAlbum? album;
+  List<SpotifyArtist>? artists;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'name': name,
