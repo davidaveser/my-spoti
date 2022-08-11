@@ -1,3 +1,4 @@
+import 'package:my_spoti/models/spotify_artist.model.dart';
 import 'package:my_spoti/models/spotify_image.model.dart';
 
 /// Receive spotify albums as json [data] and returns a `List<SpotifyAlbum>`
@@ -7,28 +8,40 @@ List<SpotifyAlbum> albumList(List<dynamic> data) =>
 /// Model for spotify album intems.
 class SpotifyAlbum {
   SpotifyAlbum({
-    this.name,
-    this.id,
+    required this.id,
+    required this.name,
+    required this.artists,
     this.images,
     this.releaseDate,
+    this.totalTracks,
   });
 
   factory SpotifyAlbum.fromJson(Map<String, dynamic> json) => SpotifyAlbum(
-        name: json['name'],
         id: json['id'],
+        name: json['name'] ?? '',
+        artists: json['artists'] == null
+            ? null
+            : List<SpotifyArtist>.from(json['artists'].map((dynamic x) => SpotifyArtist.fromJson(x))),
         images: json['images'] == null ? null : List<Image>.from(json['images'].map((dynamic x) => Image.fromJson(x))),
         releaseDate: json['release_date'] == null ? null : DateTime.parse(json['release_date']),
+        totalTracks: json['total_tracks'],
       );
 
-  String? name;
-  String? id;
+  String id;
+  String name;
+  List<SpotifyArtist> artists;
   List<Image>? images;
   DateTime? releaseDate;
+  int? totalTracks;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'name': name,
         'id': id,
+        'name': name,
+        'release_date': releaseDate == null
+            ? null
+            : "${releaseDate?.year.toString().padLeft(4, '0')}-${releaseDate?.month.toString().padLeft(2, '0')}-${releaseDate?.day.toString().padLeft(2, '0')}",
+        'total_tracks': totalTracks,
+        'artists': List<dynamic>.from(artists.map<dynamic>((x) => x.toJson())),
         'images': images == null ? null : List<dynamic>.from(images?.map<dynamic>((x) => x.toJson())),
-        'release_date': releaseDate?.toString(),
       };
 }

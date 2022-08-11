@@ -2,7 +2,11 @@ import 'package:my_spoti/constants/enums.constants.dart';
 
 /// Model to spotify images data.
 class Image {
-  Image({this.height, this.url, this.width});
+  Image({
+    required this.url,
+    required this.height,
+    required this.width,
+  });
 
   factory Image.fromJson(Map<String, dynamic> json) => Image(
         url: json['url'],
@@ -10,9 +14,9 @@ class Image {
         width: json['width'],
       );
 
-  String? url;
-  int? height;
-  int? width;
+  String url;
+  int height;
+  int width;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'url': url,
@@ -21,7 +25,7 @@ class Image {
       };
 
   /// Return the image size type based on the image height.\
-  /// 
+  ///
   /// 64 = samal, 300 = midle , 640 = big, another case = unknow
   SpotifyImageSizes get imageSize {
     switch (height) {
