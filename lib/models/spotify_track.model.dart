@@ -1,11 +1,11 @@
-import 'package:my_spoti/models/artist.model.dart';
 import 'package:my_spoti/models/spotify_album.model.dart';
+import 'package:my_spoti/models/spotify_artist.model.dart';
 
-/// Receive spotify tracks as json [data] and returns a `List<SpotifyAlbum>`
+/// Receive spotify tracks as json [data] and returns a `List<SpotifyTrack>`
 List<SpotifyTrack> trackList(List<dynamic> data) =>
     List<SpotifyTrack>.from(data.map<dynamic>((dynamic x) => SpotifyTrack.fromJson(x)));
 
-/// Model for spotify tacks intems.
+/// Model for spotify tack intems.
 class SpotifyTrack {
   SpotifyTrack({
     required this.name,

@@ -1,8 +1,10 @@
+import 'package:my_spoti/models/spotify_image.model.dart';
+
 /// Receive spotify albums as json [data] and returns a `List<SpotifyAlbum>`
 List<SpotifyAlbum> albumList(List<dynamic> data) =>
     List<SpotifyAlbum>.from(data.map<dynamic>((dynamic x) => SpotifyAlbum.fromJson(x)));
 
-/// Model for spotify albums intems.
+/// Model for spotify album intems.
 class SpotifyAlbum {
   SpotifyAlbum({
     this.name,
@@ -28,29 +30,5 @@ class SpotifyAlbum {
         'id': id,
         'images': images == null ? null : List<dynamic>.from(images?.map<dynamic>((x) => x.toJson())),
         'release_date': releaseDate?.toString(),
-      };
-}
-
-class Image {
-  Image({
-    this.url,
-    this.height,
-    this.width,
-  });
-
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
-        url: json['url'],
-        height: json['height'],
-        width: json['width'],
-      );
-
-  String? url;
-  int? height;
-  int? width;
-
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'url': url,
-        'height': height,
-        'width': width,
       };
 }

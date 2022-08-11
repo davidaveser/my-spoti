@@ -1,3 +1,5 @@
+import 'package:my_spoti/models/spotify_image.model.dart';
+
 /// Receive spotify artists as json [data] and returns a `List<SpotifyArtist>`
 List<SpotifyArtist> artistList(List<dynamic> data) =>
     List<SpotifyArtist>.from(data.map<dynamic>((dynamic x) => SpotifyArtist.fromJson(x)));
@@ -48,25 +50,5 @@ class Followers {
   Map<String, dynamic> toJson() => <String, dynamic>{
         'total': total,
         'href': href,
-      };
-}
-
-class Image {
-  Image({this.height, this.url, this.width});
-
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
-        url: json['url'],
-        height: json['height'],
-        width: json['width'],
-      );
-
-  String? url;
-  int? height;
-  int? width;
-
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'url': url,
-        'height': height,
-        'width': width,
       };
 }
