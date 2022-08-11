@@ -1,14 +1,14 @@
 import 'package:my_spoti/constants/enums.constants.dart';
 
 /// Model to spotify images data.
-class Image {
-  Image({
+class SpotifyImage {
+  SpotifyImage({
     required this.url,
     required this.height,
     required this.width,
   });
 
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
+  factory SpotifyImage.fromJson(Map<String, dynamic> json) => SpotifyImage(
         url: json['url'],
         height: json['height'],
         width: json['width'],

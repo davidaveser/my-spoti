@@ -20,7 +20,9 @@ class SpotifyAlbum {
         id: json['id'],
         name: json['name'],
         artists: List<SpotifyArtist>.from(json['artists'].map((dynamic x) => SpotifyArtist.fromJson(x))),
-        images: json['images'] == null ? null : List<Image>.from(json['images'].map((dynamic x) => Image.fromJson(x))),
+        images: json['images'] == null
+            ? null
+            : List<SpotifyImage>.from(json['images'].map((dynamic x) => SpotifyImage.fromJson(x))),
         releaseDate: json['release_date'] == null ? null : DateTime.parse(json['release_date']),
         totalTracks: json['total_tracks'],
       );
@@ -28,7 +30,7 @@ class SpotifyAlbum {
   String id;
   String name;
   List<SpotifyArtist> artists;
-  List<Image>? images;
+  List<SpotifyImage>? images;
   DateTime? releaseDate;
   int? totalTracks;
 

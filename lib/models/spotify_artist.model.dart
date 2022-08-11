@@ -16,13 +16,15 @@ class SpotifyArtist {
   factory SpotifyArtist.fromJson(Map<String, dynamic> json) => SpotifyArtist(
         id: json['id'],
         name: json['name'],
-        images: json['images'] == null ? null : List<Image>.from(json['images'].map((dynamic x) => Image.fromJson(x))),
+        images: json['images'] == null
+            ? null
+            : List<SpotifyImage>.from(json['images'].map((dynamic x) => SpotifyImage.fromJson(x))),
         followers: json['followers']['total'],
       );
 
   String id;
   String name;
-  List<Image>? images;
+  List<SpotifyImage>? images;
   int? followers;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
