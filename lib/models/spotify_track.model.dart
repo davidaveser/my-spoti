@@ -44,6 +44,6 @@ class SpotifyTrack {
         'explicit': isExplicit,
         'preview_url': previewUrl,
         'album': album?.toJson(),
-        'artists': List<dynamic>.from(artists?.map<dynamic>((x) => x.toJson()) ?? <dynamic>[]),
+        'artists': artists == null ? null : List<dynamic>.from(artists?.map<dynamic>((x) => x.toJson()) ?? <dynamic>[]),
       };
 }

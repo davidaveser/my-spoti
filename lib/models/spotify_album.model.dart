@@ -18,10 +18,8 @@ class SpotifyAlbum {
 
   factory SpotifyAlbum.fromJson(Map<String, dynamic> json) => SpotifyAlbum(
         id: json['id'],
-        name: json['name'] ?? '',
-        artists: json['artists'] == null
-            ? null
-            : List<SpotifyArtist>.from(json['artists'].map((dynamic x) => SpotifyArtist.fromJson(x))),
+        name: json['name'],
+        artists: List<SpotifyArtist>.from(json['artists'].map((dynamic x) => SpotifyArtist.fromJson(x))),
         images: json['images'] == null ? null : List<Image>.from(json['images'].map((dynamic x) => Image.fromJson(x))),
         releaseDate: json['release_date'] == null ? null : DateTime.parse(json['release_date']),
         totalTracks: json['total_tracks'],
@@ -37,11 +35,11 @@ class SpotifyAlbum {
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'name': name,
+        'artists': List<dynamic>.from(artists.map<dynamic>((x) => x.toJson())),
+        'images': images == null ? null : List<dynamic>.from(images?.map<dynamic>((x) => x.toJson())),
         'release_date': releaseDate == null
             ? null
             : "${releaseDate?.year.toString().padLeft(4, '0')}-${releaseDate?.month.toString().padLeft(2, '0')}-${releaseDate?.day.toString().padLeft(2, '0')}",
         'total_tracks': totalTracks,
-        'artists': List<dynamic>.from(artists.map<dynamic>((x) => x.toJson())),
-        'images': images == null ? null : List<dynamic>.from(images?.map<dynamic>((x) => x.toJson())),
       };
 }

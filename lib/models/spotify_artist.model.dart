@@ -7,48 +7,28 @@ List<SpotifyArtist> artistList(List<dynamic> data) =>
 /// Model for spotify artists intems.
 class SpotifyArtist {
   SpotifyArtist({
-    this.name,
-    this.id,
+    required this.id,
+    required this.name,
     this.images,
     this.followers,
   });
 
   factory SpotifyArtist.fromJson(Map<String, dynamic> json) => SpotifyArtist(
-        name: json['name'],
         id: json['id'],
+        name: json['name'],
         images: json['images'] == null ? null : List<Image>.from(json['images'].map((dynamic x) => Image.fromJson(x))),
-        followers: json['followers'] == null ? null : Followers.fromJson(json['followers']),
+        followers: json['followers']['total'],
       );
 
-  String? name;
-  String? id;
+  String id;
+  String name;
   List<Image>? images;
-  Followers? followers;
+  int? followers;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'name': name,
         'id': id,
-        'images': images == null ? null : List<dynamic>.from(images?.map<dynamic>((x) => x.toJson()) ?? <dynamic>[]),
-        'followers': followers?.toJson(),
-      };
-}
-
-class Followers {
-  Followers({
-    this.total,
-    this.href,
-  });
-
-  factory Followers.fromJson(Map<String, dynamic> json) => Followers(
-        total: json['total'],
-        href: json['href'],
-      );
-
-  int? total;
-  String? href;
-
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'total': total,
-        'href': href,
+        'name': name,
+        'images': images == null ? null : List<dynamic>.from(images?.map<dynamic>((x) => x.toJson())),
+        'followers': followers,
       };
 }
