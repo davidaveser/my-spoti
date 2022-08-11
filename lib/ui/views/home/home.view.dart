@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_spoti/constants/assets_path.constants.dart';
 import 'package:my_spoti/constants/enums.constants.dart';
 import 'package:my_spoti/stores/app_state.store.dart';
+import 'package:my_spoti/ui/views/home/sections/home_main_section.view.dart';
 import 'package:my_spoti/ui/views/home/sections/home_search_section.view.dart';
 import 'package:provider/provider.dart';
 
@@ -19,13 +20,14 @@ class HomeView extends StatelessWidget {
         if (appState.isSearchSectionSelected) {
           return const HomeSearchSectionView();
         }
-        return const HomeSearchSectionView();
+        return const HomeMainSectionView();
       }),
 
-      // Bootom navigation
-      floatingActionButton: Blur(
+      // Bottom Navigation
+      extendBody: true,
+      bottomNavigationBar: Blur(
         colorOpacity: 0.15,
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(65.0), topRight: Radius.circular(65.0)),
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(75.0), topRight: Radius.circular(75.0)),
         overlay: Observer(
           builder: (dynamic _) => Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -47,9 +49,8 @@ class HomeView extends StatelessWidget {
             ],
           ),
         ),
-        child: const SizedBox(width: double.infinity, height: 69.0),
+        child: const SizedBox(width: double.infinity, height: 75.0),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
@@ -74,13 +75,13 @@ class SectionButtonWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.only(
-        topLeft: isLeft ? const Radius.circular(65.0) : Radius.zero,
-        topRight: isLeft ? Radius.zero : const Radius.circular(65.0),
+        topLeft: isLeft ? const Radius.circular(75.0) : Radius.zero,
+        topRight: isLeft ? Radius.zero : const Radius.circular(75.0),
       ),
       child: Container(
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width / 2,
-        padding: const EdgeInsets.only(bottom: 5.0),
+        padding: const EdgeInsets.only(bottom: 10.0),
         child: Image.asset(assetIcon, height: 22.33, color: isActive ? Colors.white : Colors.white38),
       ),
     );
