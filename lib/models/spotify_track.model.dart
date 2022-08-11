@@ -8,20 +8,22 @@ List<SpotifyTrack> trackList(List<dynamic> data) =>
 /// Model for spotify tack intems.
 class SpotifyTrack {
   SpotifyTrack({
+    required this.id,
     required this.name,
     required this.durationMs,
-    required this.trackNumber,
-    required this.isExplicit,
+    this.trackNumber,
+    this.explicit,
     this.previewUrl,
     this.album,
     this.artists,
   });
 
   factory SpotifyTrack.fromJson(Map<String, dynamic> json) => SpotifyTrack(
-        name: json['name'] ?? '',
-        durationMs: json['duration_ms'] ?? 0,
-        trackNumber: json['track_number'] ?? -1,
-        isExplicit: json['explicit'] ?? false,
+        id: json['id'],
+        name: json['name'],
+        durationMs: json['duration_ms'],
+        trackNumber: json['track_number'],
+        explicit: json['explicit'],
         previewUrl: json['preview_url'],
         album: json['album'] == null ? null : SpotifyAlbum.fromJson(json['album']),
         artists: json['artists'] == null
@@ -29,21 +31,23 @@ class SpotifyTrack {
             : List<SpotifyArtist>.from(json['artists'].map((dynamic x) => SpotifyArtist.fromJson(x))),
       );
 
+  String id;
   String name;
   int durationMs;
-  int trackNumber;
-  bool isExplicit;
+  int? trackNumber;
+  bool? explicit;
   String? previewUrl;
   SpotifyAlbum? album;
   List<SpotifyArtist>? artists;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
         'name': name,
         'duration_ms': durationMs,
         'track_number': trackNumber,
-        'explicit': isExplicit,
+        'explicit': explicit,
         'preview_url': previewUrl,
         'album': album?.toJson(),
-        'artists': artists == null ? null : List<dynamic>.from(artists?.map<dynamic>((x) => x.toJson()) ?? <dynamic>[]),
+        'artists': artists == null ? null : List<dynamic>.from(artists?.map<dynamic>((x) => x.toJson())),
       };
 }
