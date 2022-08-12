@@ -9,6 +9,7 @@
     - The Search section allow you to search betten your favorite Artist and Albums, also you found correspondig tracks to each Albun.
 
 Contact
+
     Feel you free of share your comments and sugestions about the app.
 
 Development
