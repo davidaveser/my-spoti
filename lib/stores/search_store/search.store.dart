@@ -24,8 +24,12 @@ abstract class SearchWithStore with Store {
     final Map<String, dynamic>? searchResponse = await spotifyRepository.getSearchResults(stringSearch);
 
     if (searchResponse != null) {
-      artistListResult = artistList(searchResponse['artist']);
-      albumListResult = albumList(searchResponse['albums']);
+      if (searchResponse['artists'] != null) {
+        artistListResult = artistList(searchResponse['artists']);
+      }
+      if (searchResponse['albums'] != null) {
+        albumListResult = albumList(searchResponse['albums']);
+      }
     } else {
       searchLoadingError = true;
     }

@@ -15,12 +15,12 @@ abstract class HttpUtil {
   ///
   /// The String value to search [searchString] is required.
   static Map<String, dynamic> spotifyParamsSearch(String searchString) =>
-      <String, dynamic>{'limit': '20', 'offset': '0', 'q': searchString, 'type': 'album,artist,track'};
+      <String, dynamic>{'limit': '10', 'offset': '0', 'q': searchString, 'type': 'album,artist,track'};
 
   /// Return the required parameters to get the albums of an artist.
   static Map<String, dynamic> spotifyParamsArtistAlbums() =>
-      <String, dynamic>{'limit': '20', 'offset': '0', 'album_type': 'album'};
+      <String, dynamic>{'limit': '10', 'offset': '0', 'album_type': 'album'};
 
   /// Return the required parameters to get the albums of an artist.
-  static Map<String, dynamic> spotifyParamsAlbumTracks() => <String, dynamic>{'limit': '20', 'offset': '0'};
+  static Map<String, dynamic> spotifyParamsAlbumTracks() => <String, dynamic>{'limit': '10', 'offset': '0'};
 }

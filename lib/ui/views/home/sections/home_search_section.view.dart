@@ -2,15 +2,27 @@ import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_spoti/constants/custom_colors.constants.dart';
-import 'package:my_spoti/constants/enums.constants.dart';
 import 'package:my_spoti/stores/search_store/search.store.dart';
 import 'package:my_spoti/ui/widgets/album_item.widget.dart';
 import 'package:my_spoti/ui/widgets/artist_item.widget.dart';
 import 'package:my_spoti/ui/widgets/subtitle.widget.dart';
 import 'package:provider/provider.dart';
 
-class HomeSearchSectionView extends StatelessWidget {
+class HomeSearchSectionView extends StatefulWidget {
   const HomeSearchSectionView({Key? key}) : super(key: key);
+
+  @override
+  State<HomeSearchSectionView> createState() => _HomeSearchSectionViewState();
+}
+
+class _HomeSearchSectionViewState extends State<HomeSearchSectionView> {
+  final TextEditingController _textController = TextEditingController();
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +51,9 @@ class HomeSearchSectionView extends StatelessWidget {
                         final artist = searchStore.artistListResult[index];
 
                         return ArtistItemWidget(
-                          imageUrl: artist.images?.firstWhere((image) => image.imageSize == SpotifyImageSizes.big).url,
+                          imageUrl: artist.images?.isNotEmpty == true
+                              ? artist.images?.first.url ?? 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png'
+                              : 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png',
                           name: artist.name,
                           onTap: () {},
                         );
@@ -61,7 +75,9 @@ class HomeSearchSectionView extends StatelessWidget {
                       children: List.generate(searchStore.albumListResult.length, (index) {
                         final album = searchStore.albumListResult[index];
                         return AlbumItemWidget(
-                          imageUrl: album.images?.firstWhere((image) => image.imageSize == SpotifyImageSizes.big).url,
+                          imageUrl: album.images?.isNotEmpty == true
+                              ? album.images?.first.url ?? 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png'
+                              : 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png',
                           albumName: album.name,
                           artistName: album.artists.map((artist) => artist.name).toList().toString(),
                           onTap: () {},
@@ -91,6 +107,7 @@ class HomeSearchSectionView extends StatelessWidget {
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 20.0),
         child: TextField(
+          controller: _textController,
           decoration: InputDecoration(
             hintText: 'Enter your artist or album',
             contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -104,7 +121,16 @@ class HomeSearchSectionView extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(60.0)),
             ),
           ),
-          onSubmitted: (value) {},
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              searchStore.cleanStore();
+            }
+          },
+          onSubmitted: (value) {
+            if (value.isNotEmpty) {
+              searchStore.getSearchResults(value);
+            }
+          },
         ),
       ),
     );

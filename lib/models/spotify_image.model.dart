@@ -29,14 +29,12 @@ class SpotifyImage {
   /// 64 = samal, 300 = midle , 640 = big, another case = unknow
   SpotifyImageSizes get imageSize {
     switch (height) {
-      case 64:
-        return SpotifyImageSizes.small;
       case 300:
         return SpotifyImageSizes.midle;
       case 640:
         return SpotifyImageSizes.big;
       default:
-        return SpotifyImageSizes.unknow;
+        return SpotifyImageSizes.small;
     }
   }
 }
