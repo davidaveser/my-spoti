@@ -17,10 +17,14 @@ abstract class SearchWithStore with Store {
   List<SpotifyAlbum> albumListResult = [];
 
   @observable
+  bool loadind = false;
+
+  @observable
   bool searchLoadingError = false;
 
   @action
   Future<void> getSearchResults(String stringSearch) async {
+    loadind = true;
     final Map<String, dynamic>? searchResponse = await spotifyRepository.getSearchResults(stringSearch);
 
     if (searchResponse != null) {
@@ -33,12 +37,14 @@ abstract class SearchWithStore with Store {
     } else {
       searchLoadingError = true;
     }
+    loadind = false;
   }
 
   @action
   void cleanStore() {
     artistListResult = [];
     albumListResult = [];
+    loadind = false;
     searchLoadingError = false;
   }
 }
