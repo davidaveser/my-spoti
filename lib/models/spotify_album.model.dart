@@ -38,7 +38,7 @@ class SpotifyAlbum {
         'id': id,
         'name': name,
         'artists': List<dynamic>.from(artists.map<dynamic>((x) => x.toJson())),
-        'images': images == null ? null : List<dynamic>.from(images?.map<dynamic>((x) => x.toJson())),
+        'images': images == null ? null : List<dynamic>.from(images?.map<dynamic>((x) => x.toJson()) ?? <dynamic>[]),
         'release_date': releaseDate == null
             ? null
             : "${releaseDate?.year.toString().padLeft(4, '0')}-${releaseDate?.month.toString().padLeft(2, '0')}-${releaseDate?.day.toString().padLeft(2, '0')}",

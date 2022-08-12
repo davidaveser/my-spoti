@@ -19,7 +19,7 @@ class SpotifyArtist {
         images: json['images'] == null
             ? null
             : List<SpotifyImage>.from(json['images'].map((dynamic x) => SpotifyImage.fromJson(x))),
-        followers: json['followers']['total'],
+        followers: json['followers']?['total'],
       );
 
   String id;
@@ -30,7 +30,7 @@ class SpotifyArtist {
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'name': name,
-        'images': images == null ? null : List<dynamic>.from(images?.map<dynamic>((x) => x.toJson())),
+        'images': images == null ? null : List<dynamic>.from(images?.map<dynamic>((x) => x.toJson()) ?? <dynamic>[]),
         'followers': followers,
       };
 }

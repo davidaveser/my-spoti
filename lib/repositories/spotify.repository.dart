@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:my_spoti/constants/api.constant.dart';
 import 'package:my_spoti/models/spotify_album.model.dart';
+import 'package:my_spoti/models/spotify_track.model.dart';
 import 'package:my_spoti/utils/http.util.dart';
 
 class SpotifyRepository {
@@ -19,7 +20,7 @@ class SpotifyRepository {
     // Headers
     final headers = await HttpUtil.spotifyAPIHeader();
     // Parameters
-    final parameters = await HttpUtil.spotifyParamsSearch(stringSearch);
+    final parameters = HttpUtil.spotifyParamsSearch(stringSearch);
 
     try {
       final Response response = await Dio().get<dynamic>(
@@ -59,12 +60,12 @@ class SpotifyRepository {
     };
   }
 
-  /// Retrive the Albums of the give [artistID].
+  /// Retrive the Albums of the given[artistID].
   Future<List<SpotifyAlbum>?> getAlbums(String artistID) async {
     // Headers
     final headers = await HttpUtil.spotifyAPIHeader();
     // Parameters
-    final parameters = await HttpUtil.spotifyParamsArtistAlbums();
+    final parameters = HttpUtil.spotifyParamsArtistAlbums();
 
     try {
       final Response response = await Dio().get<dynamic>(
@@ -79,6 +80,37 @@ class SpotifyRepository {
       if (response.statusCode == 200) {
         if (response.data['items'] != null) {
           return albumList(response.data['items']);
+        }
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print(e.response?.data);
+      }
+    }
+
+    return null;
+  }
+
+  /// Retrive the tracks of the given [albumID].
+  Future<List<SpotifyTrack>?> getTracks(String albumID) async {
+    // Headers
+    final headers = await HttpUtil.spotifyAPIHeader();
+    // Parameters
+    final parameters = HttpUtil.spotifyParamsAlbumTracks();
+
+    try {
+      final Response response = await Dio().get<dynamic>(
+        SpotifyAPI.getTracks(albumID),
+        queryParameters: parameters,
+        options: Options(
+          contentType: Headers.jsonContentType,
+          headers: headers,
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        if (response.data['items'] != null) {
+          return trackList(response.data['items']);
         }
       }
     } on DioError catch (e) {
