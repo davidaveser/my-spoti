@@ -68,7 +68,13 @@ class AlbumDetails extends StatelessWidget {
                               children: [
                                 Wrap(
                                   children: [
-                                    const TrackItemWidget(text: 'name'),
+                                    const TrackItemWidget(text: 'track'),
+                                    TrackItemWidget(text: track.name),
+                                  ],
+                                ),
+                                Wrap(
+                                  children: [
+                                    const TrackItemWidget(text: 'album'),
                                     TrackItemWidget(text: albumStore.albumSelected?.name ?? ''),
                                   ],
                                 ),
