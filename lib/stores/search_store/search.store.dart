@@ -2,6 +2,7 @@ import 'package:mobx/mobx.dart';
 import 'package:my_spoti/models/spotify_album.model.dart';
 import 'package:my_spoti/models/spotify_artist.model.dart';
 import 'package:my_spoti/repositories/spotify.repository.dart';
+import 'package:my_spoti/utils/oauth2.util.dart';
 
 part 'search.store.g.dart';
 
@@ -24,6 +25,8 @@ abstract class SearchWithStore with Store {
 
   @action
   Future<void> getSearchResults(String stringSearch) async {
+    await OAuth2SpotifyUtil.isTokenActive();
+
     loadind = true;
     final Map<String, dynamic>? searchResponse = await spotifyRepository.getSearchResults(stringSearch);
 

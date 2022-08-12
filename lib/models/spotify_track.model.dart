@@ -50,4 +50,12 @@ class SpotifyTrack {
         'album': album?.toJson(),
         'artists': artists == null ? null : List<dynamic>.from(artists?.map<dynamic>((x) => x.toJson()) ?? <dynamic>[]),
       };
+  
+
+  String get artistList {
+    if (artists?.isNotEmpty == true) {
+      return artists?.map((e) => e.name).toList().toString() ?? '';
+    }
+    return '';
+  }
 }

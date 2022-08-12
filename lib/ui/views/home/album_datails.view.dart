@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_spoti/stores/album_store/album.store.dart';
 import 'package:my_spoti/ui/widgets/back_button.widget.dart';
 import 'package:my_spoti/ui/widgets/image.widget.dart';
+import 'package:my_spoti/ui/widgets/track_details.widget.dart';
 import 'package:provider/provider.dart';
 
 class AlbumDetails extends StatelessWidget {
@@ -45,38 +46,57 @@ class AlbumDetails extends StatelessWidget {
           builder: (dynamic _) => SingleChildScrollView(
             child: Column(
               children: [
-
                 const SizedBox(height: 25.0),
-
                 Column(
                   children: List.generate(albumStore.albumSelectedTracks.length, (index) {
                     final track = albumStore.albumSelectedTracks[index];
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(19)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            offset: const Offset(1.5, 3.5),
-                            blurRadius: 4,
+
+                    return TrackItemWidget(
+                      text: track.name,
+                      isSecundary: false,
+                      onTap: () {
+                        showDialog<dynamic>(
+                          context: context,
+                          barrierDismissible: true,
+                          barrierColor: Colors.black.withOpacity(0.9),
+                          builder: (_) => Dialog(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                            backgroundColor: Colors.transparent,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Wrap(
+                                  children: [
+                                    const TrackItemWidget(text: 'name'),
+                                    TrackItemWidget(text: albumStore.albumSelected?.name ?? ''),
+                                  ],
+                                ),
+                                Wrap(
+                                  children: [
+                                    const TrackItemWidget(text: 'artist'),
+                                    TrackItemWidget(text: track.artistList),
+                                  ],
+                                ),
+                                Wrap(
+                                  children: [
+                                    const TrackItemWidget(text: 'duration'),
+                                    TrackItemWidget(text: '${(track.durationMs / 60000).toStringAsFixed(2)} mins'),
+                                  ],
+                                ),
+                                Wrap(
+                                  children: [
+                                    const TrackItemWidget(text: 'track no.'),
+                                    TrackItemWidget(text: track.trackNumber.toString()),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
-                      margin: const EdgeInsets.symmetric(vertical: 8.0),
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
-                      child: Text(
-                        track.name,
-                        style: const TextStyle(
-                          fontFamily: 'WorkSans',
-                          fontSize: 18.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                        );
+                      },
                     );
                   }),
                 ),
-
                 const SizedBox(height: 50.0),
               ],
             ),
