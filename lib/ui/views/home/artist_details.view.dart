@@ -24,6 +24,7 @@ class ArtistDetailsView extends StatelessWidget {
           children: [
             // > List of albums
             SingleChildScrollView(
+              physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
               child: Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height * 0.43),

@@ -19,7 +19,7 @@ abstract class HttpUtil {
 
   /// Return the required parameters to get the albums of an artist.
   static Map<String, dynamic> spotifyParamsArtistAlbums() =>
-      <String, dynamic>{'limit': '10', 'offset': '0', 'album_type': 'album'};
+      <String, dynamic>{'limit': '10', 'offset': '0'};
 
   /// Return the required parameters to get the tracks of an Album.
   static Map<String, dynamic> spotifyParamsAlbumTracks() => <String, dynamic>{'limit': '10', 'offset': '0'};
