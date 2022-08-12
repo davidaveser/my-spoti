@@ -8,19 +8,21 @@ class AlbumItemWidget extends StatelessWidget {
     required this.albumName,
     required this.artistName,
     this.onTap,
+    this.width = 146,
   }) : super(key: key);
 
   final String imageUrl;
   final String albumName;
   final String artistName;
   final void Function()? onTap;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         // > Image
-        ImageWidget(imageUrl: imageUrl, onTap: onTap),
+        ImageWidget(imageUrl: imageUrl, onTap: onTap, width: width),
 
         const SizedBox(height: 5.0),
 

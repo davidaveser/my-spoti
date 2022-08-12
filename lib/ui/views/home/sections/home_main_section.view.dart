@@ -28,7 +28,9 @@ class _HomeMainSectionViewState extends State<HomeMainSectionView> {
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
-      homeAlbumsStore.getHomeAlbums();
+      if (homeAlbumsStore.albumListResult.isEmpty) {
+        homeAlbumsStore.getHomeAlbums();
+      }
     });
     super.initState();
   }
@@ -37,10 +39,9 @@ class _HomeMainSectionViewState extends State<HomeMainSectionView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Column(
           children: [
-            const SizedBox(height: 70.0),
-
             const SubtitleWidget(subtitle: 'New albums every day'),
 
             // Albums List
@@ -49,11 +50,11 @@ class _HomeMainSectionViewState extends State<HomeMainSectionView> {
                 width: double.infinity,
                 child: Wrap(
                   alignment: WrapAlignment.center,
-                  spacing: 26.0,
                   runSpacing: 20.0,
                   children: List.generate(homeAlbumsStore.albumListResult.length, (index) {
                     final album = homeAlbumsStore.albumListResult[index];
                     return AlbumItemWidget(
+                      width: 195.0,
                       imageUrl: album.images?.isNotEmpty == true
                           ? album.images?.first.url ?? 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png'
                           : 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png',
