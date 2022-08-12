@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       child: AnnotatedRegion(
         value: SystemUiOverlayStyle(
         statusBarColor: Colors.white.withOpacity(0.01),
-        statusBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark,
       ),
         child: MaterialApp(

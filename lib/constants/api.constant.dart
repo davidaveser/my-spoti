@@ -14,4 +14,7 @@ abstract class SpotifyAPI {
   ///
   /// Th id of the albun is required as [albumID].
   static String getTracks(String albumID) => '$_base/albums/$albumID/tracks';
+
+  /// Return the endpoint to get new albuns available in Mexico
+  static String get getNewAlbums => '$_base/browse/new-releases';
 }

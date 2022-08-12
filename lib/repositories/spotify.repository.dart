@@ -119,4 +119,35 @@ class SpotifyRepository {
 
     return null;
   }
+
+  /// Retrive the new albums in Mexico
+  Future<List<SpotifyAlbum>?> getNewAlbums() async {
+    // Headers
+    final headers = await HttpUtil.spotifyAPIHeader();
+    // Parameters
+    final parameters = HttpUtil.spotifyParamsArtistAlbums();
+
+    try {
+      final Response response = await Dio().get<dynamic>(
+        SpotifyAPI.getNewAlbums,
+        queryParameters: parameters,
+        options: Options(
+          contentType: Headers.jsonContentType,
+          headers: headers,
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        if (response.data['items'] != null) {
+          return albumList(response.data['items']);
+        }
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print(e.response?.data);
+      }
+    }
+
+    return null;
+  }
 }

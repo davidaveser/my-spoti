@@ -44,6 +44,7 @@ class AlbumDetails extends StatelessWidget {
         borderRadius: const BorderRadius.only(topLeft: Radius.circular(75.0), topRight: Radius.circular(75.0)),
         overlay: Observer(
           builder: (dynamic _) => SingleChildScrollView(
+            physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             child: Column(
               children: [
                 const SizedBox(height: 25.0),
