@@ -27,6 +27,7 @@ class HomeView extends StatelessWidget {
       extendBody: true,
       bottomNavigationBar: Blur(
         colorOpacity: 0.15,
+        blur: 15.0,
         borderRadius: const BorderRadius.only(topLeft: Radius.circular(75.0), topRight: Radius.circular(75.0)),
         overlay: Observer(
           builder: (dynamic _) => Row(
