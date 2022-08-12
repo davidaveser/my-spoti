@@ -125,7 +125,7 @@ class SpotifyRepository {
     // Headers
     final headers = await HttpUtil.spotifyAPIHeader();
     // Parameters
-    final parameters = HttpUtil.spotifyParamsArtistAlbums();
+    final parameters = HttpUtil.spotifyParamsHomeAlbums;
 
     try {
       final Response response = await Dio().get<dynamic>(
@@ -137,9 +137,12 @@ class SpotifyRepository {
         ),
       );
 
+      print(response.data);
+
+      final serverResponse = response.data as Map<String, dynamic>;
       if (response.statusCode == 200) {
-        if (response.data['items'] != null) {
-          return albumList(response.data['items']);
+        if (serverResponse['albums'] != null && serverResponse['albums']['items'] != null) {
+          return albumList(serverResponse['albums']['items']);
         }
       }
     } on DioError catch (e) {
