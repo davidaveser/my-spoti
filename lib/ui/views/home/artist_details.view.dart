@@ -2,7 +2,9 @@ import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_spoti/constants/assets_path.constants.dart';
+import 'package:my_spoti/stores/album_store/album.store.dart';
 import 'package:my_spoti/stores/artist_store/artist.store.dart';
+import 'package:my_spoti/ui/views/home/album_datails.view.dart';
 import 'package:my_spoti/ui/widgets/album_item.widget.dart';
 import 'package:my_spoti/ui/widgets/artist_item.widget.dart';
 import 'package:my_spoti/ui/widgets/back_button.widget.dart';
@@ -14,6 +16,7 @@ class ArtistDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final artistStore = Provider.of<ArtistStore>(context);
+    final albumStore = Provider.of<AlbumStore>(context);
 
     return Scaffold(
       body: Observer(
@@ -38,7 +41,15 @@ class ArtistDetailsView extends StatelessWidget {
                               : 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png',
                           albumName: album.name,
                           artistName: album.artists.map((artist) => artist.name).toList().toString(),
-                          onTap: () {},
+                          onTap: () {
+                            albumStore.setAlbumToDesplay(album);
+                            Navigator.push<void>(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) => const AlbumDetails(),
+                              ),
+                            );
+                          },
                         );
                       }),
                     ),

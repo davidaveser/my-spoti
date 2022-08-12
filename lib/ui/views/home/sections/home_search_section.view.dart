@@ -2,8 +2,10 @@ import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_spoti/constants/custom_colors.constants.dart';
+import 'package:my_spoti/stores/album_store/album.store.dart';
 import 'package:my_spoti/stores/artist_store/artist.store.dart';
 import 'package:my_spoti/stores/search_store/search.store.dart';
+import 'package:my_spoti/ui/views/home/album_datails.view.dart';
 import 'package:my_spoti/ui/views/home/artist_details.view.dart';
 import 'package:my_spoti/ui/widgets/album_item.widget.dart';
 import 'package:my_spoti/ui/widgets/artist_item.widget.dart';
@@ -21,11 +23,13 @@ class _HomeSearchSectionViewState extends State<HomeSearchSectionView> {
   final TextEditingController _textController = TextEditingController();
   late SearchStore searchStore;
   late ArtistStore artistStore;
+  late AlbumStore albumStore;
 
   @override
   void didChangeDependencies() {
     searchStore = Provider.of<SearchStore>(context);
     artistStore = Provider.of<ArtistStore>(context);
+    albumStore = Provider.of<AlbumStore>(context);
     super.didChangeDependencies();
   }
 
@@ -168,7 +172,15 @@ class _HomeSearchSectionViewState extends State<HomeSearchSectionView> {
                       : 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png',
                   albumName: album.name,
                   artistName: album.artists.map((artist) => artist.name).toList().toString(),
-                  onTap: () {},
+                  onTap: () {
+                    albumStore.setAlbumToDesplay(album);
+                    Navigator.push<void>(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => const AlbumDetails(),
+                      ),
+                    );
+                  },
                 );
               }),
             ),
