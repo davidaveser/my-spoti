@@ -18,12 +18,13 @@ class ImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool disablePadding = width == MediaQuery.of(context).size.width;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
       splashColor: Colors.white70,
       child: Padding(
-        padding: const EdgeInsets.all(3.5),
+        padding: EdgeInsets.all(disablePadding ? 0 : 3.5),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(borderRadius)),

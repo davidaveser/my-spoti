@@ -24,8 +24,8 @@ class AlbumDetails extends StatelessWidget {
                   ? albumStore.albumSelected?.images?.first.url ??
                       'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png'
                   : 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png',
-              width: MediaQuery.of(context).size.height * 0.45,
-              borderRadius: 60,
+              width: MediaQuery.of(context).size.width,
+              borderRadius: 0,
             ),
 
             Align(
