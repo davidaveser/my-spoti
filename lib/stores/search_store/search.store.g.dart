@@ -41,6 +41,22 @@ mixin _$SearchStore on SearchWithStore, Store {
     });
   }
 
+  late final _$loadindAtom =
+      Atom(name: 'SearchWithStore.loadind', context: context);
+
+  @override
+  bool get loadind {
+    _$loadindAtom.reportRead();
+    return super.loadind;
+  }
+
+  @override
+  set loadind(bool value) {
+    _$loadindAtom.reportWrite(value, super.loadind, () {
+      super.loadind = value;
+    });
+  }
+
   late final _$searchLoadingErrorAtom =
       Atom(name: 'SearchWithStore.searchLoadingError', context: context);
 
@@ -85,6 +101,7 @@ mixin _$SearchStore on SearchWithStore, Store {
     return '''
 artistListResult: ${artistListResult},
 albumListResult: ${albumListResult},
+loadind: ${loadind},
 searchLoadingError: ${searchLoadingError}
     ''';
   }

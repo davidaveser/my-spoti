@@ -7,15 +7,18 @@ class ArtistItemWidget extends StatelessWidget {
     required this.imageUrl,
     required this.name,
     this.onTap,
+    this.fontSize = 13.5,
   }) : super(key: key);
 
   final String imageUrl;
   final String name;
   final void Function()? onTap;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         // > Image
         ImageWidget(imageUrl: imageUrl, width: 106.0, borderRadius: 100.0, onTap: onTap),
@@ -27,10 +30,10 @@ class ArtistItemWidget extends StatelessWidget {
           width: 140.0,
           child: Text(
             name,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'SegoeUI',
               color: Colors.white,
-              fontSize: 13.5,
+              fontSize: fontSize,
               fontWeight: FontWeight.normal,
             ),
             maxLines: 1,

@@ -2,7 +2,9 @@ import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_spoti/constants/custom_colors.constants.dart';
+import 'package:my_spoti/stores/artist_store/artist.store.dart';
 import 'package:my_spoti/stores/search_store/search.store.dart';
+import 'package:my_spoti/ui/views/home/artist_details.view.dart';
 import 'package:my_spoti/ui/widgets/album_item.widget.dart';
 import 'package:my_spoti/ui/widgets/artist_item.widget.dart';
 import 'package:my_spoti/ui/widgets/subtitle.widget.dart';
@@ -18,10 +20,12 @@ class HomeSearchSectionView extends StatefulWidget {
 class _HomeSearchSectionViewState extends State<HomeSearchSectionView> {
   final TextEditingController _textController = TextEditingController();
   late SearchStore searchStore;
+  late ArtistStore artistStore;
 
   @override
   void didChangeDependencies() {
     searchStore = Provider.of<SearchStore>(context);
+    artistStore = Provider.of<ArtistStore>(context);
     super.didChangeDependencies();
   }
 
@@ -133,7 +137,15 @@ class _HomeSearchSectionViewState extends State<HomeSearchSectionView> {
                       ? artist.images?.first.url ?? 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png'
                       : 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png',
                   name: artist.name,
-                  onTap: () {},
+                  onTap: () {
+                    artistStore.setArtistToDesplay(artist);
+                    Navigator.push<void>(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => const ArtistDetailsView(),
+                      ),
+                    );
+                  },
                 );
               }),
             ),

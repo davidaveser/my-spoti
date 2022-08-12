@@ -40,6 +40,7 @@ class ImageWidget extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl: imageUrl,
               width: width,
+              height: width,
               placeholder: (context, url) => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: CircularProgressIndicator(color: CustomColors.primaryDark, strokeWidth: 4.5),
