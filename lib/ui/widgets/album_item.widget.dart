@@ -1,6 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:my_spoti/constants/custom_colors.constants.dart';
+import 'package:my_spoti/ui/widgets/image.widget.dart';
 
 class AlbumItemWidget extends StatelessWidget {
   const AlbumItemWidget({
@@ -8,62 +7,45 @@ class AlbumItemWidget extends StatelessWidget {
     required this.imageUrl,
     required this.albumName,
     required this.artistName,
+    this.onTap,
   }) : super(key: key);
 
   final String imageUrl;
   final String albumName;
   final String artistName;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-      splashColor: Colors.white70,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.deepPurpleAccent[400]?.withOpacity(0.85) ?? CustomColors.primaryDark,
-              blurRadius: 1.0,
-              offset: const Offset(-3.5, 2.0),
-            ),
-          ],
+    return Column(
+      children: [
+        // > Image
+        ImageWidget(imageUrl: imageUrl, onTap: onTap),
+
+        const SizedBox(height: 5.0),
+
+        // > Artist name
+        SizedBox(
+          width: 140.0,
+          child: Text(
+            artistName,
+            style: _textStyle(fontSize: 10.5),
+            maxLines: 1,
+            textAlign: TextAlign.center,
+          ),
         ),
-        child: Column(
-          children: [
-            // > Image
-            ImageWidget(imageUrl: imageUrl),
 
-            const SizedBox(height: 5.0),
-
-            // > Artist name
-            SizedBox(
-              width: 140.0,
-              child: Text(
-                artistName,
-                style: _textStyle(fontSize: 10.5),
-                maxLines: 1,
-                textAlign: TextAlign.center,
-              ),
-            ),
-
-            // > Album name
-            SizedBox(
-              width: 140.0,
-              child: Text(
-                albumName,
-                style: _textStyle(),
-                maxLines: 1,
-                textAlign: TextAlign.center,
-              ),
-            ),
-
-            const SizedBox(height: 3.5),
-          ],
+        // > Album name
+        SizedBox(
+          width: 140.0,
+          child: Text(
+            albumName,
+            style: _textStyle(),
+            maxLines: 1,
+            textAlign: TextAlign.center,
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -73,39 +55,4 @@ class AlbumItemWidget extends StatelessWidget {
         fontSize: fontSize,
         fontWeight: FontWeight.normal,
       );
-}
-
-class ImageWidget extends StatelessWidget {
-  const ImageWidget({Key? key, required this.imageUrl}) : super(key: key);
-
-  final String imageUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(19.0)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.5),
-            offset: const Offset(1.5, 3.5),
-            blurRadius: 4,
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(19.0)),
-        child: CachedNetworkImage(
-          imageUrl: imageUrl,
-          width: 146.0,
-          placeholder: (context, url) => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: CircularProgressIndicator(color: CustomColors.primaryDark, strokeWidth: 4.5),
-          ),
-          errorWidget: (context, url, dynamic error) => const Icon(Icons.error),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
 }

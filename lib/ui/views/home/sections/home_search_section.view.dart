@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_spoti/constants/custom_colors.constants.dart';
 import 'package:my_spoti/ui/widgets/album_item.widget.dart';
 import 'package:my_spoti/ui/widgets/artist_item.widget.dart';
+import 'package:my_spoti/ui/widgets/subtitle.widget.dart';
 
 class HomeSearchSectionView extends StatelessWidget {
   const HomeSearchSectionView({Key? key}) : super(key: key);
@@ -16,8 +17,11 @@ class HomeSearchSectionView extends StatelessWidget {
           SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 155.0),
+                const SizedBox(height: 130.0),
 
+                const SubtitleWidget(subtitle: 'Artist'),
+
+                // Artist List
                 SizedBox(
                   width: double.infinity,
                   child: Wrap(
@@ -26,13 +30,16 @@ class HomeSearchSectionView extends StatelessWidget {
                     runSpacing: 22.0,
                     children: List.generate(
                       4,
-                      (index) => const ArtistItemWidget(
+                      (index) => ArtistItemWidget(
                         imageUrl: 'https://i.scdn.co/image/ab67616d0000b273649f01bbab8409909d42a166',
                         name: 'Karpl G',
+                        onTap: () {},
                       ),
                     ),
                   ),
                 ),
+
+                const SubtitleWidget(subtitle: 'Albums'),
 
                 // Albums List
                 SizedBox(
@@ -43,10 +50,11 @@ class HomeSearchSectionView extends StatelessWidget {
                     runSpacing: 20.0,
                     children: List.generate(
                       4,
-                      (index) => const AlbumItemWidget(
+                      (index) => AlbumItemWidget(
                         imageUrl: 'https://i.scdn.co/image/ab67616d0000b273649f01bbab8409909d42a166',
                         albumName: 'Purpose',
                         artistName: 'Justin Bieber',
+                        onTap: () {},
                       ),
                     ),
                   ),
