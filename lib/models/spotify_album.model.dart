@@ -23,7 +23,7 @@ class SpotifyAlbum {
         images: json['images'] == null
             ? null
             : List<SpotifyImage>.from(json['images'].map((dynamic x) => SpotifyImage.fromJson(x))),
-        releaseDate: json['release_date'] == null ? null : DateTime.parse(json['release_date']),
+        releaseDate: DateTime.tryParse(json['release_date']),
         totalTracks: json['total_tracks'],
       );
 

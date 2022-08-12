@@ -83,11 +83,14 @@ class _HomeSearchSectionViewState extends State<HomeSearchSectionView> {
   }
 
   Widget get _currentWidget {
+    // > Loading widget
     if (searchStore.loadind) {
       return Center(
         child: CircularProgressIndicator(color: CustomColors.primaryDark, strokeWidth: 4.5),
       );
     }
+
+    // > Server error widget
     if (searchStore.searchLoadingError) {
       return const Center(
         child: Text(
@@ -96,6 +99,8 @@ class _HomeSearchSectionViewState extends State<HomeSearchSectionView> {
         ),
       );
     }
+
+    // > Initial search indication widget
     if (searchStore.artistListResult.isEmpty && searchStore.albumListResult.isEmpty) {
       return const Center(
         child: Text(
@@ -109,30 +114,28 @@ class _HomeSearchSectionViewState extends State<HomeSearchSectionView> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const SizedBox(height: 130.0),
+          const SizedBox(height: 70.0),
 
           const SubtitleWidget(subtitle: 'Artist'),
 
           // Artist List
           SizedBox(
             width: double.infinity,
-            child: Observer(
-              builder: (_) => Wrap(
-                alignment: WrapAlignment.center,
-                spacing: 26.0,
-                runSpacing: 22.0,
-                children: List.generate(searchStore.artistListResult.length, (index) {
-                  final artist = searchStore.artistListResult[index];
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 26.0,
+              runSpacing: 22.0,
+              children: List.generate(searchStore.artistListResult.length, (index) {
+                final artist = searchStore.artistListResult[index];
 
-                  return ArtistItemWidget(
-                    imageUrl: artist.images?.isNotEmpty == true
-                        ? artist.images?.first.url ?? 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png'
-                        : 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png',
-                    name: artist.name,
-                    onTap: () {},
-                  );
-                }),
-              ),
+                return ArtistItemWidget(
+                  imageUrl: artist.images?.isNotEmpty == true
+                      ? artist.images?.first.url ?? 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png'
+                      : 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png',
+                  name: artist.name,
+                  onTap: () {},
+                );
+              }),
             ),
           ),
 
@@ -141,23 +144,21 @@ class _HomeSearchSectionViewState extends State<HomeSearchSectionView> {
           // Albums List
           SizedBox(
             width: double.infinity,
-            child: Observer(
-              builder: (_) => Wrap(
-                alignment: WrapAlignment.center,
-                spacing: 26.0,
-                runSpacing: 20.0,
-                children: List.generate(searchStore.albumListResult.length, (index) {
-                  final album = searchStore.albumListResult[index];
-                  return AlbumItemWidget(
-                    imageUrl: album.images?.isNotEmpty == true
-                        ? album.images?.first.url ?? 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png'
-                        : 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png',
-                    albumName: album.name,
-                    artistName: album.artists.map((artist) => artist.name).toList().toString(),
-                    onTap: () {},
-                  );
-                }),
-              ),
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 26.0,
+              runSpacing: 20.0,
+              children: List.generate(searchStore.albumListResult.length, (index) {
+                final album = searchStore.albumListResult[index];
+                return AlbumItemWidget(
+                  imageUrl: album.images?.isNotEmpty == true
+                      ? album.images?.first.url ?? 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png'
+                      : 'https://pixsector.com/cache/8955ccde/avea0c6d1234636825bd6.png',
+                  albumName: album.name,
+                  artistName: album.artists.map((artist) => artist.name).toList().toString(),
+                  onTap: () {},
+                );
+              }),
             ),
           ),
 

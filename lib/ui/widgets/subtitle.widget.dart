@@ -14,7 +14,7 @@ class SubtitleWidget extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        margin: const EdgeInsets.only(left: 20.0, top: 50.0, bottom: 28.0),
+        margin: const EdgeInsets.only(left: 20.0, top: 100.0, bottom: 45.0),
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
         decoration: BoxDecoration(
           color: CustomColors.primary,
