@@ -19,7 +19,7 @@ class AlbumItemWidget extends StatelessWidget {
     return InkWell(
       onTap: () {},
       borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-      splashColor: Colors.white,
+      splashColor: Colors.white70,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(25.0)),
@@ -27,7 +27,7 @@ class AlbumItemWidget extends StatelessWidget {
             BoxShadow(
               color: Colors.deepPurpleAccent[400]?.withOpacity(0.85) ?? CustomColors.primaryDark,
               blurRadius: 1.0,
-              spreadRadius: 0,
+              offset: const Offset(-3.5, 2.0),
             ),
           ],
         ),

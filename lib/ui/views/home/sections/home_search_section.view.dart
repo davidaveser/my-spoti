@@ -2,6 +2,7 @@ import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:my_spoti/constants/custom_colors.constants.dart';
 import 'package:my_spoti/ui/widgets/album_item.widget.dart';
+import 'package:my_spoti/ui/widgets/artist_item.widget.dart';
 
 class HomeSearchSectionView extends StatelessWidget {
   const HomeSearchSectionView({Key? key}) : super(key: key);
@@ -17,6 +18,22 @@ class HomeSearchSectionView extends StatelessWidget {
               children: [
                 const SizedBox(height: 155.0),
 
+                SizedBox(
+                  width: double.infinity,
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: 26.0,
+                    runSpacing: 22.0,
+                    children: List.generate(
+                      4,
+                      (index) => const ArtistItemWidget(
+                        imageUrl: 'https://i.scdn.co/image/ab67616d0000b273649f01bbab8409909d42a166',
+                        name: 'Karpl G',
+                      ),
+                    ),
+                  ),
+                ),
+
                 // Albums List
                 SizedBox(
                   width: double.infinity,
@@ -25,9 +42,9 @@ class HomeSearchSectionView extends StatelessWidget {
                     spacing: 26.0,
                     runSpacing: 20.0,
                     children: List.generate(
-                      10,
+                      4,
                       (index) => const AlbumItemWidget(
-                        imageUrl: 'https://i.scdn.co/image/ab67616d00001e02f46b9d202509a8f7384b90de',
+                        imageUrl: 'https://i.scdn.co/image/ab67616d0000b273649f01bbab8409909d42a166',
                         albumName: 'Purpose',
                         artistName: 'Justin Bieber',
                       ),
