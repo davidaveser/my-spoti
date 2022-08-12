@@ -4,7 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_spoti/stores/album_store/album.store.dart';
 import 'package:my_spoti/ui/widgets/back_button.widget.dart';
 import 'package:my_spoti/ui/widgets/image.widget.dart';
-import 'package:my_spoti/ui/widgets/track_details.widget.dart';
+import 'package:my_spoti/ui/widgets/track_item.widget.dart';
 import 'package:provider/provider.dart';
 
 class AlbumDetails extends StatelessWidget {
