@@ -1,15 +1,21 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_spoti/constants/custom_colors.constants.dart';
+import 'package:my_spoti/constants/enums.constants.dart';
+import 'package:my_spoti/stores/search_store/search.store.dart';
 import 'package:my_spoti/ui/widgets/album_item.widget.dart';
 import 'package:my_spoti/ui/widgets/artist_item.widget.dart';
 import 'package:my_spoti/ui/widgets/subtitle.widget.dart';
+import 'package:provider/provider.dart';
 
 class HomeSearchSectionView extends StatelessWidget {
   const HomeSearchSectionView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final searchStore = Provider.of<SearchStore>(context);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -24,17 +30,20 @@ class HomeSearchSectionView extends StatelessWidget {
                 // Artist List
                 SizedBox(
                   width: double.infinity,
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 26.0,
-                    runSpacing: 22.0,
-                    children: List.generate(
-                      4,
-                      (index) => ArtistItemWidget(
-                        imageUrl: 'https://i.scdn.co/image/ab67616d0000b273649f01bbab8409909d42a166',
-                        name: 'Karpl G',
-                        onTap: () {},
-                      ),
+                  child: Observer(
+                    builder: (_) => Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 26.0,
+                      runSpacing: 22.0,
+                      children: List.generate(searchStore.artistListResult.length, (index) {
+                        final artist = searchStore.artistListResult[index];
+
+                        return ArtistItemWidget(
+                          imageUrl: artist.images?.firstWhere((image) => image.imageSize == SpotifyImageSizes.big).url,
+                          name: artist.name,
+                          onTap: () {},
+                        );
+                      }),
                     ),
                   ),
                 ),
@@ -44,18 +53,20 @@ class HomeSearchSectionView extends StatelessWidget {
                 // Albums List
                 SizedBox(
                   width: double.infinity,
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 26.0,
-                    runSpacing: 20.0,
-                    children: List.generate(
-                      4,
-                      (index) => AlbumItemWidget(
-                        imageUrl: 'https://i.scdn.co/image/ab67616d0000b273649f01bbab8409909d42a166',
-                        albumName: 'Purpose',
-                        artistName: 'Justin Bieber',
-                        onTap: () {},
-                      ),
+                  child: Observer(
+                    builder: (_) => Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 26.0,
+                      runSpacing: 20.0,
+                      children: List.generate(searchStore.albumListResult.length, (index) {
+                        final album = searchStore.albumListResult[index];
+                        return AlbumItemWidget(
+                          imageUrl: album.images?.firstWhere((image) => image.imageSize == SpotifyImageSizes.big).url,
+                          albumName: album.name,
+                          artistName: album.artists.map((artist) => artist.name).toList().toString(),
+                          onTap: () {},
+                        );
+                      }),
                     ),
                   ),
                 ),

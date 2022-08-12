@@ -16,7 +16,7 @@ class SpotifyRepository {
   ///
   /// Error response:\
   /// {"error":{"status":_codeNumber,"message":_message}}
-  Future<Map<String, dynamic>> getSearchResults(String stringSearch) async {
+  Future<Map<String, dynamic>?> getSearchResults(String stringSearch) async {
     // Headers
     final headers = await HttpUtil.spotifyAPIHeader();
     // Parameters
@@ -51,13 +51,11 @@ class SpotifyRepository {
       }
     } on DioError catch (e) {
       if (e.response != null) {
-        return e.response?.data as Map<String, dynamic>;
+        print(e.response?.data);
       }
     }
 
-    return <String, dynamic>{
-      'error': {'status': -1, 'message': 'Unexpected error'}
-    };
+    return null;
   }
 
   /// Retrive the Albums of the given[artistID].
