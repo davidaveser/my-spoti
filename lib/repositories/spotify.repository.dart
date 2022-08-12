@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:my_spoti/constants/api.constant.dart';
+import 'package:my_spoti/models/spotify_album.model.dart';
 import 'package:my_spoti/utils/http.util.dart';
 
 class SpotifyRepository {
@@ -14,8 +15,10 @@ class SpotifyRepository {
   ///
   /// Error response:\
   /// {"error":{"status":_codeNumber,"message":_message}}
-  Future<Map<String, dynamic>> getSpotifySearchResults(String stringSearch) async {
+  Future<Map<String, dynamic>> getSearchResults(String stringSearch) async {
+    // Headers
     final headers = await HttpUtil.spotifyAPIHeader();
+    // Parameters
     final parameters = await HttpUtil.spotifyParamsSearch(stringSearch);
 
     try {
@@ -54,5 +57,36 @@ class SpotifyRepository {
     return <String, dynamic>{
       'error': {'status': -1, 'message': 'Unexpected error'}
     };
+  }
+
+  /// Retrive the Albums of the give [artistID].
+  Future<List<SpotifyAlbum>?> getAlbums(String artistID) async {
+    // Headers
+    final headers = await HttpUtil.spotifyAPIHeader();
+    // Parameters
+    final parameters = await HttpUtil.spotifyParamsArtistAlbums();
+
+    try {
+      final Response response = await Dio().get<dynamic>(
+        SpotifyAPI.getAlbums(artistID),
+        queryParameters: parameters,
+        options: Options(
+          contentType: Headers.jsonContentType,
+          headers: headers,
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        if (response.data['items'] != null) {
+          return albumList(response.data['items']);
+        }
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print(e.response?.data);
+      }
+    }
+
+    return null;
   }
 }
