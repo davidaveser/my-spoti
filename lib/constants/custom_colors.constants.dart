@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 abstract class CustomColors {
   /// Color for the main baground of the views.
   static Color background = const Color(0xFF282A3D);
-  // static Color background = const Color(0xFF151719);
 
   /// Primary color.
   static Color primary = const Color(0xFF551BF9);
